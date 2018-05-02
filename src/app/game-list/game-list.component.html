@@ -1,0 +1,80 @@
+<nav class="maincontainer">
+    <input class="btn btn-info" type="input" placeholder="Algemeen zoeken in spellenlijst"
+    [(ngModel)]="filterText" (ngModelChange)="search()" style="width:100%; display:table-cell;float:left;">
+    <button type="button" class="btn btn-info" routerLink="/addgame" style="position: relative;display:inline-block;margin-left:1%">
+      <i class="fa fa-plus"></i>
+    </button>
+</nav>
+
+
+<div class="row" style="padding:0% 5% 0% 5%">
+  <div class="col-md-12">
+    <table class="table table-hover">
+      <tr class="danger" style="background-color:hsl(188, 40%, 75%)
+      ;">
+        <td style="width: 5%" (click)="sort('GameId')">
+          <h5 class="unselectable">Nr.</h5>
+        </td>
+        <td style="width: 40%" (click)="sort('Name')">
+          <h5 class="unselectable">Naam</h5>
+        </td>
+        <td style="width: 20%" (click)="sort('Rating')">
+          <h5 class="unselectable">Rating</h5>
+        </td>
+        <td style="width: 25%" (click)="sort('PublisherName')">
+          <h5 class="unselectable">Uitgever</h5>
+        </td>
+        <td style="width: 5%;text-align:right;"(click)="sort('MinPlayers')">
+          <h5 class="unselectable">Min</h5>
+        </td>
+        <td style="width: 5%;text-align:right;"(click)="sort('MaxPlayers')">
+          <h5 class="unselectable">Max</h5>
+        </td>
+      </tr>
+      <tr style="background-color:white">
+        <td style="width: 5%;padding-left: 0%">
+          <input type="number" class="form-control" style="width:100%;" (input)="searchProp('GameId', $event.target.value)">
+        </td>
+        <td style="width: 40%">
+          <input type="text" class="form-control" style="width:100%;" (input)="searchProp('Name', $event.target.value)">
+        </td>
+        <td style="width: 20%">
+          <input type="number" class="form-control" style="width:100%;" (input)="searchProp('Rating', $event.target.value)">
+        </td>
+        <td style="width: 25%">
+          <input type="text" class="form-control" style="width:100%;" (input)="searchProp('PublisherName', $event.target.value)">
+        </td>
+        <td style="width: 5%;padding:0%;">
+          <input type="number" class="form-control" style="width:100%; padding-right:0%; padding-left:0%;" (input)="searchProp('MinPlayers', $event.target.value)">
+        </td>
+        <td style="width: 5%;padding-right:0%; padding-left:1%;">
+          <input type="number" class="form-control" style="width:100%; padding-right:0%; padding-left:0%;" (input)="searchProp('MaxPlayers', $event.target.value)">
+        </td>
+      </tr>
+      <tr *ngFor="let game of filteredGames" routerLink="/detail/{{game.GameId}}">
+        <td style="width: 10%" *ngIf="filteredGames !=null && filteredGames.length>0">
+          {{game.GameId}}
+        </td>
+        <td style="width: 40%" *ngIf="filteredGames !=null && filteredGames.length>0">
+          {{game.Name}}
+        </td>
+        <td style="width: 20%" *ngIf="filteredGames !=null && filteredGames.length>0">
+          <rating [titles]="['1','2','3','4','5','6','7','8','9','10']" [max]="10"
+          [(ngModel)]="game.Rating" [max]=10 [readonly]="true" style="font-size:135%;">
+          </rating>
+        </td>
+        <td style="width: 20%;" *ngIf="filteredGames !=null && filteredGames.length>0">
+          {{game.PublisherName}}
+        </td>
+        <td style="width: 5%;text-align:center;" *ngIf="filteredGames !=null && filteredGames.length>0">
+          {{game.MinPlayers}}
+        </td>
+        <td style="width: 5%;text-align:center;" *ngIf="filteredGames !=null && filteredGames.length>0">
+          {{game.MaxPlayers}}
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
