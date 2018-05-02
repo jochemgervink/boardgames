@@ -1,2 +1,3 @@
 # boardgames
 boardgames app
+init
